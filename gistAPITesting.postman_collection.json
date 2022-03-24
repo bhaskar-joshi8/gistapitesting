@@ -1,0 +1,208 @@
+{
+	"info": {
+		"_postman_id": "5c6caba7-9f91-4cc6-917b-418d99e0bb5a",
+		"name": "gistAPITesting",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Gist Value ByID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"lol\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/{{gistid}}/comments/{{commentid}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"{{gistid}}",
+						"comments",
+						"{{commentid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Gist Comments - Invalid Commentid Value",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/vnd.github.v3+json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/{{gistid}}/comments/{{invalidcommendid}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"{{gistid}}",
+						"comments",
+						"{{invalidcommendid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Gist Comments - Invalid gistid Value",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/vnd.github.v3+json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/{{invalidgistid}}/comments/{{commentid}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"{{invalidgistid}}",
+						"comments",
+						"{{commentid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Gist Comments Value",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/vnd.github.v3+json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "body",
+							"value": "testing",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/GIST_ID/comments/{{gistid}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"GIST_ID",
+						"comments",
+						"{{gistid}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "gistid",
+			"value": "1"
+		},
+		{
+			"key": "commentid",
+			"value": "32714",
+			"type": "string"
+		},
+		{
+			"key": "invalidcommendid",
+			"value": "123"
+		},
+		{
+			"key": "invalidgistid",
+			"value": "123",
+			"type": "string"
+		}
+	]
+}
